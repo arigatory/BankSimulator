@@ -26,6 +26,9 @@ namespace ModuleClients
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterForNavigation<ClientsView>();
+            containerRegistry.RegisterForNavigation<DashboardView>();
+            containerRegistry.RegisterForNavigation<ClientDetailView>();
         }
     }
 }

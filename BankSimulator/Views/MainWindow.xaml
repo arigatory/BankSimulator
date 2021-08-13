@@ -4,7 +4,7 @@
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="{Binding Title}"
-        Height="600" Width="920"
+        Height="600" Width="970"
         WindowStyle="None"
         ResizeMode="NoResize"
         Background="Transparent"
@@ -26,7 +26,7 @@
             CornerRadius="20">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="250"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
@@ -50,14 +50,22 @@
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              IsChecked="True"
-                             Command="{Binding HomeViewCommand}"/>
+                             Command="{Binding NavigateCommand}"
+                             CommandParameter="DashboardView"/>
 
-                <RadioButton Content="Физические лица"
+                <RadioButton Content="Обычные клиенты"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding DiscoveryViewCommand}"/>
+                             Command="{Binding NavigateCommand}"
+                             CommandParameter="ClientsView"/>
+
+                <RadioButton Content="VIP-клиенты"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"/>
 
                 <RadioButton Content="Юридические лица"
                              Height="50"

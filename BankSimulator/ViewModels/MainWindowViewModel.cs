@@ -1,6 +1,7 @@
 ﻿using ModuleClients.ViewModels;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 using System;
 
 namespace BankSimulator.ViewModels
@@ -8,20 +9,17 @@ namespace BankSimulator.ViewModels
     public class MainWindowViewModel : BindableBase
     {
         private string _title = "Prism Application";
+        
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
 
-        public DelegateCommand ClientsViewCommand { get; set; }
-        public DelegateCommand DiscoveryViewCommand { get; set; }
-
-
-        public ClientsViewModel ClientsVM { get; set; }
-        //public DiscoveryViewModel DiscoveryVM { get; set; }
+        public DelegateCommand<string> NavigateCommand { get; set; }
 
         private object _currentView;
+        private readonly IRegionManager _regionManager;
 
         public object CurrentView
         {
@@ -32,24 +30,15 @@ namespace BankSimulator.ViewModels
             }
         }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IRegionManager regionManager)
         {
-            ClientsVM = new ClientsViewModel();
-            //DiscoveryVM = new DiscoveryViewModel();
-            CurrentView = ClientsVM;
-
-            ClientsViewCommand = new DelegateCommand(OnClientsView);
-       
-            //DiscoveryViewCommand = new DelegateCommand<object>(o =>
-            //{
-            //    CurrentView = DiscoveryVM;
-            //});
-
+            _regionManager = regionManager;
+            NavigateCommand = new DelegateCommand<string>(Navigate);
         }
 
-        private void OnClientsView()
+        private void Navigate(string uri)
         {
-            CurrentView = ClientsVM;
+            _regionManager.RequestNavigate("ContentRegion", uri);
         }
     }
 }
