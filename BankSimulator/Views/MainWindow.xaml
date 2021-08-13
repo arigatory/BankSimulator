@@ -19,7 +19,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel prism:RegionManager.RegionName="ContentRegion" />
+        <StackPanel  />
     </Grid>-->
 
     <Border Background="#272537"
@@ -77,8 +77,7 @@
             <ContentControl Grid.Row="1"
                             Grid.Column="1"
                             Margin="10"
-                            Content="{Binding CurrentView}"
-                            />
+                            prism:RegionManager.RegionName="ContentRegion"/>
         </Grid>
 
     </Border>
