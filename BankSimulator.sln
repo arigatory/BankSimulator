@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31605.320
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31606.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSimulator", "BankSimulator\BankSimulator.csproj", "{17289C15-2DBB-450F-88B0-49B54286FA68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankSimulator", "BankSimulator\BankSimulator.csproj", "{17289C15-2DBB-450F-88B0-49B54286FA68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleClients", "ModuleClients\ModuleClients.csproj", "{959682B3-29F3-4BD0-A1D3-1EEE13CBA09B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModuleClients", "ModuleClients\ModuleClients.csproj", "{959682B3-29F3-4BD0-A1D3-1EEE13CBA09B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSimulator.DataAccess", "BankSimulator.DataAccess\BankSimulator.DataAccess.csproj", "{FD85AD1E-FE51-436D-9B25-24024F8E054E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSimulator.Model", "BankSimulator.Model\BankSimulator.Model.csproj", "{EEF6DC1A-BBE6-44D0-8384-64559A8A1DB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{959682B3-29F3-4BD0-A1D3-1EEE13CBA09B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{959682B3-29F3-4BD0-A1D3-1EEE13CBA09B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{959682B3-29F3-4BD0-A1D3-1EEE13CBA09B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD85AD1E-FE51-436D-9B25-24024F8E054E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD85AD1E-FE51-436D-9B25-24024F8E054E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD85AD1E-FE51-436D-9B25-24024F8E054E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD85AD1E-FE51-436D-9B25-24024F8E054E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEF6DC1A-BBE6-44D0-8384-64559A8A1DB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEF6DC1A-BBE6-44D0-8384-64559A8A1DB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEF6DC1A-BBE6-44D0-8384-64559A8A1DB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEF6DC1A-BBE6-44D0-8384-64559A8A1DB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

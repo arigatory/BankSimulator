@@ -1,16 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+    <PackageReference Include="Bogus" Version="33.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BankSimulator.DataAccess\BankSimulator.DataAccess.csproj" />
     <ProjectReference Include="..\BankSimulator.Model\BankSimulator.Model.csproj" />
   </ItemGroup>
 

@@ -7,6 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock>Here will be clients!</TextBlock>
+        <Border CornerRadius="10">
+            <DataGrid ItemsSource="{Binding Clients}" 
+                  DisplayMemberPath="Name"
+                  Margin="5"/>
+        </Border>
     </Grid>
 </UserControl>
