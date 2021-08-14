@@ -6,7 +6,7 @@
         Title="{Binding Title}"
         Height="600" Width="970"
         WindowStyle="None"
-        ResizeMode="NoResize"
+        ResizeMode="CanResizeWithGrip"
         Background="Transparent"
         AllowsTransparency="True">
     <!--<Grid>
@@ -35,13 +35,54 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Банк Skillbox"
+            
+
+            <Border Grid.ColumnSpan="2"
+                    MouseDown="Border_MouseDown"
+                    Background="#272537"
+                    CornerRadius="20">
+                <Grid HorizontalAlignment="Stretch">
+                    <TextBlock Text="Банк Skillbox"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Foreground="White"
                        FontSize="22"
                        Margin="20,0,0,0"
                        FontFamily="/Fonts/#Poppins"/>
+
+                    <StackPanel HorizontalAlignment="Right"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+
+                        <Button Width="40" Height="40"
+                            Content="🗕"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="Gray"
+                            FontWeight="Bold"
+                            Margin="0,0,0,3"
+                            
+                            Click="ButtonMinimize_Click"/>
+
+                        <Button Width="40" Height="40"
+                            Content="⬜"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="Gray"
+                            FontWeight="Bold"
+                            Click="WindowStateButton_Click"/>
+
+                        <Button Width="40" Height="40"
+                            Content="✕"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="Gray"
+                            FontWeight="Bold"
+                            Click="CloseButton_Click"
+                            Margin="0,0,8,0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
 
             <StackPanel Grid.Row="1">
                 <RadioButton Content="Сводная информация"
