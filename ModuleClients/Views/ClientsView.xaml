@@ -8,9 +8,11 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Border CornerRadius="10">
-            <DataGrid ItemsSource="{Binding Clients}" 
-                  DisplayMemberPath="Name"
-                  Margin="5"/>
+            <ListView ItemsSource="{Binding Clients}"
+                      SelectedItem="{Binding SelectedClient}"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      ItemContainerStyle="{StaticResource ContactCard}"/>
         </Border>
     </Grid>
 </UserControl>
