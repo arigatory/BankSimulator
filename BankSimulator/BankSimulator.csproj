@@ -6,12 +6,17 @@
     <AssemblyName>BankSimulator</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Images\money.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\money.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Prism.DryIoc" Version="8.0.0.1909" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModuleClients\ModuleClients.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\" />
   </ItemGroup>
 </Project>

@@ -17,10 +17,16 @@ namespace BankSimulator.DataAccess
                 //Optional: Call for objects that have complex initialization
 
                 //Basic rules using built-in generators
-                .RuleFor(p => p.Gender, f => f.PickRandom<Gender>())
-                .RuleFor(p => p.Name, (f, p) => f.Name.FullName((Name.Gender?)p.Gender));
+                .RuleFor(p => p.Sex, f => f.PickRandom<Gender>())
+                .RuleFor(p => p.FirstName, (f, p) => f.Name.FirstName((Name.Gender?)p.Sex))
+                .RuleFor(p => p.LastName, (f, p) => f.Name.LastName((Name.Gender?)p.Sex));
 
             Clients = testUsers.Generate(10);
+
+            foreach (var c in Clients)
+            {
+                c.ImageSource = @"https://randomuser.me/api/portraits/med/men/75.jpg";
+            }
         }
     }
 }

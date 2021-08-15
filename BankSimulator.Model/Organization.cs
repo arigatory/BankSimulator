@@ -2,5 +2,6 @@
 {
     public class Organization : Client
     {
+        public string Title { get; set; }
     }
 }

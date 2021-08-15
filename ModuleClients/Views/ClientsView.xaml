@@ -8,11 +8,42 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Border CornerRadius="10">
-            <ListView ItemsSource="{Binding Clients}"
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <ListView ItemsSource="{Binding Clients}"
                       SelectedItem="{Binding SelectedClient}"
                       Background="Transparent"
                       BorderThickness="0"
                       ItemContainerStyle="{StaticResource ContactCard}"/>
+
+                <StackPanel Orientation="Horizontal"
+                            Grid.Row="1"
+                            Margin="5,10,5,5"
+                            HorizontalAlignment="Right">
+                    <Button Content="Удалить клиента"
+                            Margin="5"
+                            Padding="10"
+                            Background="#b52b2b"
+                            BorderThickness="0"
+                            Width="140"
+                            Foreground="White"
+                            Command="{Binding DeleteCommand}"/>
+
+                    <Button Content="Открыть"
+                            Margin="5"
+                            Padding="10"
+                            Background="#675cc0"
+                            BorderThickness="0"
+                            Width="140"
+                            Foreground="White"
+                            Command="{Binding NavigateCommand}"
+                            CommandParameter="ClientDetailView"/>
+                </StackPanel>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>
