@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
-        <TextBlock Text="Disover"
+        <TextBlock Text="Обзор"
                    Foreground="White"
                    FontSize="28"
                    HorizontalAlignment="Left"
@@ -30,25 +30,35 @@
                 </Border.Clip>
 
                 <Grid>
-                    <StackPanel>
-                        <TextBlock Text="World leader&#x0a;in global finance"
+                    <Button Command="{Binding NavigateCommand}"
+                            CommandParameter="ClientsView" 
+                            Background="Transparent"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
+                        <Grid HorizontalAlignment="Stretch">
+                            <StackPanel HorizontalAlignment="Stretch">
+                                <TextBlock Text="Клиенты"
                                    Foreground="White"
                                    FontSize="28"
-                                   Margin="20,10,10,0"/>
+                                   Margin="-40,10,10,0"
+                                           HorizontalAlignment="Left"/>
 
-                        <TextBlock Text="Get started today!"
+                                <TextBlock Text="Основные клиенты банка"
                                    Foreground="White"
                                    FontSize="18"
-                                   Margin="20,10,10,0"/>
-                    </StackPanel>
+                                   Margin="-90,10,10,0"/>
+                            </StackPanel>
 
-                    <Image Width="250"
+                            <Image Width="250"
                            Height="250"
-                           Source="/Images/man.png"
+                           Source="/Images/clients.jpg"
                            HorizontalAlignment="Right"
                            VerticalAlignment="Bottom"
-                           Margin="0,0,-99,-76"
+                           Margin="0,0,-189,-36"
                            RenderTransformOrigin="0.5,0.5"/>
+                        </Grid>
+                    </Button>
+                    
                 </Grid>
             </Border>
 

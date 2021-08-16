@@ -61,12 +61,12 @@
                        Text="Банковские продукты: "
                        Margin="0,0,0,5"/>
             <ListView Grid.Row="1"
-                      ItemsSource="{Binding SelectedClient.Products}"
+                      ItemsSource="{Binding Products}"
                       Margin="0,0,0,30"
                       ItemContainerStyle="{StaticResource ProductCard}"
                       Background="Transparent"
-                      BorderThickness="0"/>
-            
+                      BorderThickness="0"
+                      SelectedItem="{Binding SelectedProduct}"/>
         </Grid>
         
         
@@ -79,7 +79,7 @@
                             BorderThickness="0"
                             Width="140"
                             Foreground="White"
-                            Command="{Binding NewAccountCommand}"/>
+                            Command="{Binding OpenProductCommand}"/>
             <Button Content="Закрыть cчет"
                             Margin="5"
                             Padding="10"
@@ -87,7 +87,7 @@
                             BorderThickness="0"
                             Width="140"
                             Foreground="White"
-                            Command="{Binding NavigateCommand}"
+                            Command="{Binding CloseProductCommand}"
                             CommandParameter="ClientDetailView"/>
             <Button Content="Переводы"
                             Margin="5"
