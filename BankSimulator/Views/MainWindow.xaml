@@ -47,8 +47,7 @@
                        HorizontalAlignment="Left"
                        Foreground="White"
                        FontSize="22"
-                       Margin="20,0,0,0"
-                       FontFamily="/Fonts/#Poppins"/>
+                       Margin="20,0,0,0"/>
 
                     <StackPanel HorizontalAlignment="Right"
                                 Orientation="Horizontal"
@@ -115,14 +114,7 @@
                              Style="{StaticResource MenuButtonTheme}"/>
             </StackPanel>
 
-            <TextBox Width="250"
-                     Height="40"
-                     VerticalContentAlignment="Center"
-                     HorizontalAlignment="Left"
-                     Margin="5"
-                     Grid.Column="1"
-                     Style="{StaticResource ModernTextbox}"/>
-
+           
             <ContentControl Grid.Row="1"
                             Grid.Column="1"
                             Margin="10"

@@ -57,8 +57,9 @@
                                        Foreground="White"
                                        FontSize="18"/>
                                     <Label Content="{Binding Balance}"
-                                       Foreground="White"
-                                       FontSize="18"/>
+                                           Foreground="White"
+                                           FontSize="18"
+                                           ContentStringFormat="c"/>
                                 </StackPanel>
                             </StackPanel>
 

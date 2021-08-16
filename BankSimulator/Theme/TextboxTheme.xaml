@@ -7,7 +7,6 @@
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border CornerRadius="10"
                             Background="#353340"
-                            Width="200"
                             Height="40">
 
                         <Grid>
@@ -22,7 +21,7 @@
                                      x:Name="SearchBox"/>
 
                             <TextBlock IsHitTestVisible="False"
-                                       Text="Поиск"
+                                       Text="Введите текст"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Left"
                                        Margin="10,0,0,0"

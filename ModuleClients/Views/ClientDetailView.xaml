@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ModuleClients.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Language="ru-RU">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -22,15 +23,20 @@
             <StackPanel>
                 <TextBlock Foreground="White" 
                         FontSize="20"
-                        Text="Имя: "/>
+                        Text="Имя: "
+                        Margin="0,0,0,5"/>
                 <TextBox FontSize="20"
                         Text="{Binding SelectedClient.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         Margin="0,0,0,10"/>
+                         Margin="0,0,0,10"
+                         Style="{StaticResource ModernTextbox}"/>
                 <TextBlock Foreground="White" 
                         FontSize="20"
-                        Text="Фамилия:"/>
-                <TextBox  Text="{Binding SelectedClient.LastName}"
-                        FontSize="20"/>
+                        Text="Фамилия:"
+                           Margin="0,0,0,5"/>
+                <TextBox Text="{Binding SelectedClient.LastName}"
+                         FontSize="20"
+                         Margin="0,0,0,10"
+                         Style="{StaticResource ModernTextbox}"/>
             </StackPanel>
 
 
@@ -56,7 +62,10 @@
                        Margin="0,0,0,5"/>
             <ListView Grid.Row="1"
                       ItemsSource="{Binding SelectedClient.Products}"
-                      Margin="0,0,0,30"/>
+                      Margin="0,0,0,30"
+                      ItemContainerStyle="{StaticResource ProductCard}"
+                      Background="Transparent"
+                      BorderThickness="0"/>
             
         </Grid>
         
@@ -70,8 +79,25 @@
                             BorderThickness="0"
                             Width="140"
                             Foreground="White"
+                            Command="{Binding NewAccountCommand}"/>
+            <Button Content="Закрыть cчет"
+                            Margin="5"
+                            Padding="10"
+                            Background="#b52b2b"
+                            BorderThickness="0"
+                            Width="140"
+                            Foreground="White"
                             Command="{Binding NavigateCommand}"
                             CommandParameter="ClientDetailView"/>
+            <Button Content="Переводы"
+                            Margin="5"
+                            Padding="10"
+                            Background="#675cc0"
+                            BorderThickness="0"
+                            Width="140"
+                            Foreground="White"
+                            Command="{Binding NavigateCommand}"
+                            CommandParameter="ProductDetailView"/>
         </StackPanel>
     </Grid>
 

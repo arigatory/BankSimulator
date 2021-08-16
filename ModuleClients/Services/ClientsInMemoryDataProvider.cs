@@ -45,7 +45,16 @@ namespace ModuleClients.Services
                 client.ImageSource = person.results[i].picture.large;
                 _clients.Add(client);
             }
-            
+
+            Random random = new Random();
+            foreach (var c in _clients)
+            {
+                c.Products.Add(new Product { Name="Вклад 'Skillbox'", Percent=7.5, Number=123, OpenedDate=DateTime.Now, Amount=random.Next(10000,500000)});
+                c.Products.Add(new Product { Name="Накопительный счет", Percent=5.5, Number=543, OpenedDate=DateTime.Now, Amount=random.Next(10000, 500000) });
+                c.Products.Add(new Product { Name="Кредит", Percent=10.5, Number=543, OpenedDate=DateTime.Now, Amount=-random.Next(10000, 1000000) });
+            }
+
+
             return _clients.ToList();
         }
 
