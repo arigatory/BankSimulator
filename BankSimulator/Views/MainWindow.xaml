@@ -93,13 +93,17 @@
                              Height="50"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"/>
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding NavigateCommand}"
+                             CommandParameter="VipClientsView"/>
 
                 <RadioButton Content="Юридические лица"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"/>
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding NavigateCommand}"
+                             CommandParameter="OrganizationsView"/>
             </StackPanel>
 
            

@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="ModuleClients.Views.VipClientsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ModuleClients.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Language="ru-RU">
+    <Grid>
+        <Border CornerRadius="10" BorderThickness="5" BorderBrush="#b52b2b">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <ListView ItemsSource="{Binding Clients}"
+                      SelectedItem="{Binding SelectedClient}"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      ItemContainerStyle="{StaticResource ContactCard}"/>
+
+                <StackPanel Orientation="Horizontal"
+                            Grid.Row="1"
+                            Margin="5,10,5,5"
+                            HorizontalAlignment="Right">
+                    <Button Content="Удалить клиента"
+                            Margin="5"
+                            Padding="10"
+                            Background="#b52b2b"
+                            BorderThickness="0"
+                            Width="140"
+                            Foreground="White"
+                            Command="{Binding DeleteCommand}"/>
+
+                    
+                    <Button Content="Открыть"
+                            Margin="5"
+                            Padding="10"
+                            Background="#675cc0"
+                            BorderThickness="0"
+                            Width="140"
+                            Foreground="White"
+                            Command="{Binding NavigateCommand}"
+                            CommandParameter="ClientDetailView"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

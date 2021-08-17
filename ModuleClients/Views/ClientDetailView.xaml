@@ -89,7 +89,7 @@
                             Foreground="White"
                             Command="{Binding CloseProductCommand}"
                             CommandParameter="ClientDetailView"/>
-            <Button Content="Переводы"
+            <Button Content="Посмотреть счет"
                             Margin="5"
                             Padding="10"
                             Background="#675cc0"
@@ -97,7 +97,7 @@
                             Width="140"
                             Foreground="White"
                             Command="{Binding NavigateCommand}"
-                            CommandParameter="ProductDetailView"/>
+                            CommandParameter="ProductView"/>
         </StackPanel>
     </Grid>
 

@@ -24,6 +24,8 @@ namespace ModuleClients.ViewModels
         }
 
         private Product _selectedProduct;
+        private readonly IRegionManager _regionManager;
+
         public Product SelectedProduct
         {
             get { return _selectedProduct; }
@@ -42,13 +44,20 @@ namespace ModuleClients.ViewModels
 
 
 
-        public ClientDetailViewModel()
+        public ClientDetailViewModel(IRegionManager regionManager)
         {
             CloseProductCommand = new DelegateCommand(CloseProductExecute, CloseProductCanExecute);
             OpenProductCommand = new DelegateCommand(OpenProductExecute);
             Products = new ObservableCollection<Product>();
-            
+            NavigateCommand = new DelegateCommand<string>(Navigate);
+            _regionManager = regionManager;
         }
+
+        private void Navigate(string uri)
+        {
+            _regionManager.RequestNavigate("ContentRegion", uri);
+        }
+
 
         private void OpenProductExecute()
         {

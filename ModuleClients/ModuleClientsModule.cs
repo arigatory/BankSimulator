@@ -29,6 +29,9 @@ namespace ModuleClients
             containerRegistry.RegisterForNavigation<ClientsView>();
             containerRegistry.RegisterForNavigation<DashboardView>();
             containerRegistry.RegisterForNavigation<ClientDetailView>();
+            containerRegistry.RegisterForNavigation<ProductView>();
+            containerRegistry.RegisterForNavigation<VipClientsView>();
+            containerRegistry.RegisterForNavigation<OrganizationsView>();
         }
     }
 }
