@@ -9,6 +9,8 @@
     <None Remove="Images\clients.jpg" />
     <None Remove="Images\money.png" />
     <None Remove="Images\rub.png" />
+    <None Remove="Images\time.png" />
+    <None Remove="Images\vip.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\clients.jpg">
@@ -18,6 +20,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\rub.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\time.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\vip.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
