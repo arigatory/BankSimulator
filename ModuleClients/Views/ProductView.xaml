@@ -7,6 +7,61 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock Text="test" Foreground="Wheat" FontSize="100"/>
+        <Image Width="200"
+               Height="200"
+               Source="/Images/money.png"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Bottom"
+               Margin="5"
+               RenderTransformOrigin="0.5,0.5"/>
+        <StackPanel>
+            <TextBlock Foreground="White" 
+                        FontSize="20"
+                        Text="Название банковского продукта: "
+                        Margin="0,0,0,5"/>
+            <TextBox FontSize="20"
+                        Text="{Binding SelectedProduct.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="0,0,0,10"
+                         Style="{StaticResource ModernTextbox}"/>
+            <TextBlock Foreground="White" 
+                        FontSize="20"
+                        Text="Сумма на счете:"
+                           Margin="0,0,0,5"/>
+            <TextBox Text="{Binding SelectedProduct.Amount}"
+                         FontSize="20"
+                         Margin="0,0,0,10"
+                         Style="{StaticResource ModernTextbox}"/>
+            <TextBlock Foreground="White" 
+                        FontSize="20"
+                        Text="Процент годовых:"
+                           Margin="0,0,0,5"/>
+            <TextBox Text="{Binding SelectedProduct.Amount}"
+                         FontSize="20"
+                         Margin="0,0,0,10"
+                         Style="{StaticResource ModernTextbox}"/>
+            <StackPanel>
+                <RadioButton Content="Кредит" 
+                             Foreground="White" 
+                             FontSize="20" 
+                             HorizontalContentAlignment="Left" 
+                             VerticalContentAlignment="Center"/>
+                <RadioButton Content="Депозит" 
+                             Foreground="White" 
+                             FontSize="20" 
+                             HorizontalContentAlignment="Left" 
+                             VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <Button Content="Сохранить изменения"
+                    Margin="5"
+                    Padding="10"
+                    Background="#675cc0"
+                    BorderThickness="0"
+                    Width="340"
+                    Foreground="White"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="ProductView"
+                    FontSize="30"
+                    />
+        </StackPanel>
     </Grid>
 </UserControl>
