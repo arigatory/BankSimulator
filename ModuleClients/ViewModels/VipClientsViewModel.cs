@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ModuleClients.ViewModels
 {
-    public class VipClientsViewModel : BindableBase
+    public class VipClientsViewModel : BindableBase, INavigationAware
     {
         private readonly IClientsRepository _clientsRepository;
         private readonly IRegionManager _regionManager;
@@ -33,6 +33,8 @@ namespace ModuleClients.ViewModels
 
         public DelegateCommand<string> NavigateCommand { get; set; }
         public DelegateCommand DeleteCommand { get; set; }
+        public Bank _bank { get; private set; }
+
         public VipClientsViewModel(IRegionManager regionManager)
         {
             _clientsRepository = new ClientsInMemoryDataProvider();
@@ -69,12 +71,41 @@ namespace ModuleClients.ViewModels
 
         private void OndDeleteExecute()
         {
+            _bank.Clients.Remove(SelectedClient);
             Clients.Remove(SelectedClient);
+            SelectedClient = Clients.FirstOrDefault();
         }
 
         private bool OnDeleteCanExecute()
         {
             return SelectedClient != null;
         }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            if (navigationContext.Parameters.ContainsKey("bank"))
+            {
+                _bank = navigationContext.Parameters.GetValue<Bank>("bank");
+                Clients.Clear();
+                foreach (var client in _bank.Clients)
+                {
+                    if (client is Person && client.IsVIP)
+                    {
+                        Clients.Add(client);
+                    }
+                }
+                SelectedClient = Clients.FirstOrDefault();
+            }
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+        }
+
     }
 }

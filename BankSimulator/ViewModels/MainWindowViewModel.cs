@@ -1,6 +1,7 @@
 ﻿using BankSimulator.Model;
 using ModuleClients.Services;
 using ModuleClients.ViewModels;
+using ModuleClients.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -14,7 +15,6 @@ namespace BankSimulator.ViewModels
         private object _currentView;
         private readonly IRegionManager _regionManager;
         private readonly IClientsRepository _clientsRepository;
-
 
         public string Title
         {
@@ -41,6 +41,7 @@ namespace BankSimulator.ViewModels
             NavigateCommand = new DelegateCommand<string>(Navigate);
             SkillboxBank = new Bank();
             LoadAsync();
+            Navigate(nameof(DashboardView));
         }
 
         private async void LoadAsync()
@@ -54,7 +55,9 @@ namespace BankSimulator.ViewModels
 
         private void Navigate(string uri)
         {
-            _regionManager.RequestNavigate("ContentRegion", uri);
+            var p = new NavigationParameters();
+            p.Add("bank", SkillboxBank);
+            _regionManager.RequestNavigate("ContentRegion", uri, p);
         }
     }
 }

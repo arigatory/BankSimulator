@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ModuleClients.ViewModels
 {
-    public class ClientsViewModel : BindableBase
+    public class ClientsViewModel : BindableBase, INavigationAware
     {
         private readonly IClientsRepository _clientsRepository;
         private readonly IRegionManager _regionManager;
@@ -20,6 +20,8 @@ namespace ModuleClients.ViewModels
         public ObservableCollection<Client> Clients { get; }
 
         private Client _selectedClient;
+        private Bank _bank;
+
         public Client SelectedClient
         {
             get { return _selectedClient; }
@@ -41,17 +43,6 @@ namespace ModuleClients.ViewModels
             Clients = new ObservableCollection<Client>();
             DeleteCommand = new DelegateCommand(OndDeleteExecute, OnDeleteCanExecute);
             NavigateCommand = new DelegateCommand<string>(Navigate);
-            LoadAsync();
-        }
-
-        private async void LoadAsync()
-        {
-            var clients = await _clientsRepository.GetClientsAsync();
-            foreach (var client in clients)
-            {
-                Clients.Add(client);
-            }
-            SelectedClient = Clients.FirstOrDefault();
         }
 
         private void Navigate(string uri)
@@ -69,12 +60,40 @@ namespace ModuleClients.ViewModels
 
         private void OndDeleteExecute()
         {
+            _bank.Clients.Remove(SelectedClient);
             Clients.Remove(SelectedClient);
+            SelectedClient = Clients.FirstOrDefault();
         }
 
         private bool OnDeleteCanExecute()
         {
             return SelectedClient != null;
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            if (navigationContext.Parameters.ContainsKey("bank"))
+            {
+                _bank = navigationContext.Parameters.GetValue<Bank>("bank");
+                Clients.Clear();
+                foreach (var client in _bank.Clients)
+                {
+                    if (client is Person  && !client.IsVIP)
+                    {
+                        Clients.Add(client);
+                    }
+                }
+                SelectedClient = Clients.FirstOrDefault();
+            }
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
         }
     }
 }

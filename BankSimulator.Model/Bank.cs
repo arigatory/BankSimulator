@@ -10,6 +10,22 @@ namespace BankSimulator.Model
         {
             get => Clients.Count();
         }
+        public int TotalMoney
+        {
+            get
+            {
+                double total = Clients.Sum(client => client.Balance);
+                return (int)total;
+            }
+        }
+
+        public int TotalProducts
+        {
+            get
+            {
+                return Clients.Sum(c => c.Products.Count);
+            }
+        }
 
         public Bank()
         {
