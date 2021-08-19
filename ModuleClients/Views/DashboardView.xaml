@@ -140,7 +140,7 @@
                                    FontSize="22"
                                    Margin="10"
                                    TextWrapping="Wrap"/>
-                        <TextBlock Text="1000"
+                        <TextBlock Text="{Binding TotalClients}"
                                    Foreground="White"
                                    FontSize="40"
                                    Margin="10"

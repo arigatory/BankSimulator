@@ -1,4 +1,6 @@
-﻿using ModuleClients.ViewModels;
+﻿using BankSimulator.Model;
+using ModuleClients.Services;
+using ModuleClients.ViewModels;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -8,19 +10,18 @@ namespace BankSimulator.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-        private string _title = "Prism Application";
-        
+        private string _title = "Банк Skillbox";
+        private object _currentView;
+        private readonly IRegionManager _regionManager;
+        private readonly IClientsRepository _clientsRepository;
+
+
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-
         public DelegateCommand<string> NavigateCommand { get; set; }
-
-        private object _currentView;
-        private readonly IRegionManager _regionManager;
-
         public object CurrentView
         {
             get { return _currentView; }
@@ -29,11 +30,26 @@ namespace BankSimulator.ViewModels
                 SetProperty(ref _currentView, value);
             }
         }
+        public Bank SkillboxBank{ get; }
+
+
 
         public MainWindowViewModel(IRegionManager regionManager)
         {
+            _clientsRepository = new ClientsInMemoryDataProvider();
             _regionManager = regionManager;
             NavigateCommand = new DelegateCommand<string>(Navigate);
+            SkillboxBank = new Bank();
+            LoadAsync();
+        }
+
+        private async void LoadAsync()
+        {
+            var clients = await _clientsRepository.GetClientsAsync();
+            foreach (var client in clients)
+            {
+                SkillboxBank.Clients.Add(client);
+            }
         }
 
         private void Navigate(string uri)

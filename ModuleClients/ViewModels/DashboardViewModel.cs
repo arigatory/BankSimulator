@@ -13,6 +13,20 @@ namespace ModuleClients.ViewModels
     {
         private IRegionManager _regionManager;
 
+        private int _totalClients;
+
+        public int TotalClients
+        {
+            get { return _totalClients; }
+            set
+            {
+                _totalClients = value;
+                SetProperty(ref _totalClients, value);
+            }
+        }
+
+
+
         public DelegateCommand<string> NavigateCommand { get; set; }
 
         public DashboardViewModel(IRegionManager regionManager)

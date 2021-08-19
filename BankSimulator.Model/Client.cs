@@ -21,5 +21,6 @@ namespace BankSimulator.Model
 
         public List<Product> Products { get; set; }
         public string ImageSource { get; set; }
+        public bool IsVIP { get; set; }
     }
 }
