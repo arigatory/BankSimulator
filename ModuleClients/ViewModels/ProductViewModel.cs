@@ -14,6 +14,15 @@ namespace ModuleClients.ViewModels
     {
         private readonly IRegionManager _regionManager;
 
+
+        private Product _product;
+
+        public Product Product
+        {
+            get { return _product; }
+            set { SetProperty(ref _product, value); }
+        }
+
         public DelegateCommand<string> NavigateCommand { get; set; }
        
         public ProductViewModel(IRegionManager regionManager)
@@ -29,16 +38,10 @@ namespace ModuleClients.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            //if (navigationContext.Parameters.ContainsKey("client"))
-            //{
-            //    SelectedClient = navigationContext.Parameters.GetValue<Client>("client");
-            //    Products.Clear();
-            //    foreach (var prod in SelectedClient.Products)
-            //    {
-            //        Products.Add(prod);
-            //    }
-            //    SelectedProduct = Products.FirstOrDefault();
-            //}
+            if (navigationContext.Parameters.ContainsKey("product"))
+            {
+                Product = navigationContext.Parameters.GetValue<Product>("product");
+            }
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

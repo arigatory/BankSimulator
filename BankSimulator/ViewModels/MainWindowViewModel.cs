@@ -41,7 +41,6 @@ namespace BankSimulator.ViewModels
             NavigateCommand = new DelegateCommand<string>(Navigate);
             SkillboxBank = Bank.getInstance();
             LoadAsync();
-            Navigate(nameof(DashboardView));
         }
 
         private async void LoadAsync()
@@ -51,6 +50,7 @@ namespace BankSimulator.ViewModels
             {
                 SkillboxBank.Clients.Add(client);
             }
+            Navigate(nameof(DashboardView));
         }
 
         private void Navigate(string uri)

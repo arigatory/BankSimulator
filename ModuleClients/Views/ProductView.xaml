@@ -20,14 +20,14 @@
                         Text="Название банковского продукта: "
                         Margin="0,0,0,5"/>
             <TextBox FontSize="20"
-                        Text="{Binding SelectedProduct.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Text="{Binding Product.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          Margin="0,0,0,10"
                          Style="{StaticResource ModernTextbox}"/>
             <TextBlock Foreground="White" 
                         FontSize="20"
                         Text="Сумма на счете:"
                            Margin="0,0,0,5"/>
-            <TextBox Text="{Binding SelectedProduct.Amount}"
+            <TextBox Text="{Binding Product.Amount}"
                          FontSize="20"
                          Margin="0,0,0,10"
                          Style="{StaticResource ModernTextbox}"/>
@@ -35,33 +35,12 @@
                         FontSize="20"
                         Text="Процент годовых:"
                            Margin="0,0,0,5"/>
-            <TextBox Text="{Binding SelectedProduct.Amount}"
+            <TextBox Text="{Binding Product.Percent}"
                          FontSize="20"
                          Margin="0,0,0,10"
                          Style="{StaticResource ModernTextbox}"/>
-            <StackPanel>
-                <RadioButton Content="Кредит" 
-                             Foreground="White" 
-                             FontSize="20" 
-                             HorizontalContentAlignment="Left" 
-                             VerticalContentAlignment="Center"/>
-                <RadioButton Content="Депозит" 
-                             Foreground="White" 
-                             FontSize="20" 
-                             HorizontalContentAlignment="Left" 
-                             VerticalContentAlignment="Center"/>
-            </StackPanel>
-            <Button Content="Сохранить изменения"
-                    Margin="5"
-                    Padding="10"
-                    Background="#675cc0"
-                    BorderThickness="0"
-                    Width="300"
-                    Foreground="White"
-                    Command="{Binding NavigateCommand}"
-                    CommandParameter="ProductView"
-                    FontSize="26"
-                    />
+
+
         </StackPanel>
     </Grid>
 </UserControl>

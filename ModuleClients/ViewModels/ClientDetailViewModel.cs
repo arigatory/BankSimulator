@@ -55,7 +55,14 @@ namespace ModuleClients.ViewModels
 
         private void Navigate(string uri)
         {
-            _regionManager.RequestNavigate("ContentRegion", uri);
+            if (SelectedProduct == null)
+            {
+                return;
+            }
+
+            var p = new NavigationParameters();
+            p.Add("product", _selectedProduct);
+            _regionManager.RequestNavigate("ContentRegion", uri, p);
         }
 
 

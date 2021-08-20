@@ -27,15 +27,16 @@ namespace ModuleClients.ViewModels
             get { return _totalClients; }
             set
             {
-                _totalClients = value;
                 SetProperty(ref _totalClients, value);
             }
         }
+
         public long TotalMoney
         {
             get { return _totalMoney; }
             set { SetProperty(ref _totalMoney, value); }
         }
+
         public int TotalProducts
         {
             get { return _totalProducts; }
@@ -75,8 +76,6 @@ namespace ModuleClients.ViewModels
                 }
             }
             _eventAggregator.GetEvent<OneYearPassedEvent>().Publish("One year passed!");
-            TotalClients += 1;
-            TotalProducts +=1;
         }
 
         private void Navigate(string uri)
@@ -89,7 +88,7 @@ namespace ModuleClients.ViewModels
             if (navigationContext.Parameters.ContainsKey("bank"))
             {
                 _bank = navigationContext.Parameters.GetValue<Bank>("bank");
-                TotalClients = _bank.TotalClients;
+                TotalClients = _bank.Clients.Count;
                 TotalMoney = _bank.TotalMoney;
                 TotalProducts = _bank.TotalProducts;
             }

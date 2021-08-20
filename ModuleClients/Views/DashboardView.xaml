@@ -141,11 +141,10 @@
                                    FontSize="22"
                                    Margin="10"
                                    TextWrapping="Wrap"/>
-                        <TextBlock Text="{Binding TotalClients}"
+                        <Label Content="{Binding TotalClients}"
                                    Foreground="White"
                                    FontSize="40"
                                    Margin="10"
-                                   TextWrapping="Wrap"
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Bottom"/>
                     </Grid>
@@ -162,11 +161,10 @@
                                    FontSize="20"
                                    Margin="10"
                                    TextWrapping="Wrap"/>
-                        <TextBlock Text="{Binding TotalProducts}"
+                        <Label Content="{Binding TotalProducts}"
                                    Foreground="White"
                                    FontSize="40"
                                    Margin="10"
-                                   TextWrapping="Wrap"
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Bottom"/>
                     </Grid>
