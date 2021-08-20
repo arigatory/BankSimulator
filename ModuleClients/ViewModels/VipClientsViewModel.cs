@@ -1,6 +1,7 @@
 ﻿using BankSimulator.Model;
 using ModuleClients.Services;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
@@ -12,76 +13,15 @@ using System.Threading.Tasks;
 
 namespace ModuleClients.ViewModels
 {
-    public class VipClientsViewModel : BindableBase, INavigationAware
+    public class VipClientsViewModel : ClientsViewModel
     {
-        private readonly IClientsRepository _clientsRepository;
-        private readonly IRegionManager _regionManager;
-
-        public ObservableCollection<Client> Clients { get; }
-
-        private Client _selectedClient;
-        public Client SelectedClient
+        public VipClientsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator): 
+            base(regionManager, eventAggregator)
         {
-            get { return _selectedClient; }
-            set
-            {
-                SetProperty(ref _selectedClient, value);
-                DeleteCommand.RaiseCanExecuteChanged();
-            }
+
         }
 
-
-        public DelegateCommand<string> NavigateCommand { get; set; }
-        public DelegateCommand DeleteCommand { get; set; }
-        public Bank _bank { get; private set; }
-
-        public VipClientsViewModel(IRegionManager regionManager)
-        {
-            _clientsRepository = new ClientsInMemoryDataProvider();
-            _regionManager = regionManager;
-
-            Clients = new ObservableCollection<Client>();
-            DeleteCommand = new DelegateCommand(OndDeleteExecute, OnDeleteCanExecute);
-            NavigateCommand = new DelegateCommand<string>(Navigate);
-            LoadAsync();
-        }
-
-        private async void LoadAsync()
-        {
-            var clients = await _clientsRepository.GetClientsAsync();
-            foreach (var client in clients)
-            {
-                Clients.Add(client);
-            }
-            SelectedClient = Clients.FirstOrDefault();
-        }
-
-        private void Navigate(string uri)
-        {
-            if (SelectedClient == null)
-            {
-                return;
-            }
-
-            var p = new NavigationParameters();
-            p.Add("client", _selectedClient);
-            _regionManager.RequestNavigate("ContentRegion", uri, p);
-        }
-
-
-        private void OndDeleteExecute()
-        {
-            _bank.Clients.Remove(SelectedClient);
-            Clients.Remove(SelectedClient);
-            SelectedClient = Clients.FirstOrDefault();
-        }
-
-        private bool OnDeleteCanExecute()
-        {
-            return SelectedClient != null;
-        }
-
-        public void OnNavigatedTo(NavigationContext navigationContext)
+        override public void OnNavigatedTo(NavigationContext navigationContext)
         {
             if (navigationContext.Parameters.ContainsKey("bank"))
             {
@@ -97,15 +37,5 @@ namespace ModuleClients.ViewModels
                 SelectedClient = Clients.FirstOrDefault();
             }
         }
-
-        public bool IsNavigationTarget(NavigationContext navigationContext)
-        {
-            return true;
-        }
-
-        public void OnNavigatedFrom(NavigationContext navigationContext)
-        {
-        }
-
     }
 }

@@ -69,6 +69,23 @@ namespace ModuleClients.Services
                 _clients.Add(client);
             }
 
+
+            var company = new Organization
+            {
+                Title="Yandex", ImageSource= "https://forum.cs-cart.ru/uploads/default/original/2X/c/c9a4cabc0d580fccbafe6c2c6c4a69b3a6e333b5.png"
+            };
+            company.Products.Add(new Product { Amount =200000000, Name="Счет организации", OpenedDate=DateTime.Now, Percent=3.4});
+            _clients.Add(company);
+
+
+            company = new Organization
+            {
+                Title = "Сбер",
+                ImageSource = "https://upload.wikimedia.org/wikipedia/commons/f/f5/Social-en%281%29.png"
+            };
+            company.Products.Add(new Product { Amount = 400000000, Name = "Счет организации", OpenedDate = DateTime.Now, Percent = 6.4 });
+            _clients.Add(company);
+
             return _clients.ToList();
         }
 

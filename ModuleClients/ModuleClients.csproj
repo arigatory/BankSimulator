@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BankSimulator.Core\BankSimulator.Core.csproj" />
     <ProjectReference Include="..\BankSimulator.DataAccess\BankSimulator.DataAccess.csproj" />
     <ProjectReference Include="..\BankSimulator.Model\BankSimulator.Model.csproj" />
   </ItemGroup>

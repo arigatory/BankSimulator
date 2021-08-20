@@ -9,7 +9,7 @@ namespace BankSimulator.Model
         {
             Products = new List<Product>();
         }
-        public int Balance
+        public long Balance
         {
             get
             {

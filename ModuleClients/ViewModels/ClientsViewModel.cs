@@ -1,6 +1,8 @@
-﻿using BankSimulator.Model;
+﻿using BankSimulator.Core.Events;
+using BankSimulator.Model;
 using ModuleClients.Services;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
@@ -16,11 +18,12 @@ namespace ModuleClients.ViewModels
     {
         private readonly IClientsRepository _clientsRepository;
         private readonly IRegionManager _regionManager;
+        private readonly IEventAggregator _eventAggregator;
 
         public ObservableCollection<Client> Clients { get; }
 
         private Client _selectedClient;
-        private Bank _bank;
+        protected Bank _bank;
 
         public Client SelectedClient
         {
@@ -35,10 +38,12 @@ namespace ModuleClients.ViewModels
 
         public DelegateCommand<string> NavigateCommand { get; set; }
         public DelegateCommand DeleteCommand { get; set; }
-        public ClientsViewModel(IRegionManager regionManager)
+        public ClientsViewModel(IRegionManager regionManager,
+            IEventAggregator eventAggregator)
         {
             _clientsRepository = new ClientsInMemoryDataProvider();
             _regionManager = regionManager;
+            _eventAggregator = eventAggregator;
 
             Clients = new ObservableCollection<Client>();
             DeleteCommand = new DelegateCommand(OndDeleteExecute, OnDeleteCanExecute);
@@ -63,6 +68,7 @@ namespace ModuleClients.ViewModels
             _bank.Clients.Remove(SelectedClient);
             Clients.Remove(SelectedClient);
             SelectedClient = Clients.FirstOrDefault();
+            _eventAggregator.GetEvent<DeletedItemEvent>().Publish("");
         }
 
         private bool OnDeleteCanExecute()
@@ -70,7 +76,7 @@ namespace ModuleClients.ViewModels
             return SelectedClient != null;
         }
 
-        public void OnNavigatedTo(NavigationContext navigationContext)
+        public virtual void OnNavigatedTo(NavigationContext navigationContext)
         {
             if (navigationContext.Parameters.ContainsKey("bank"))
             {

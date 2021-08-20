@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankSimulator", "BankSimula
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModuleClients", "ModuleClients\ModuleClients.csproj", "{959682B3-29F3-4BD0-A1D3-1EEE13CBA09B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSimulator.DataAccess", "BankSimulator.DataAccess\BankSimulator.DataAccess.csproj", "{FD85AD1E-FE51-436D-9B25-24024F8E054E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankSimulator.DataAccess", "BankSimulator.DataAccess\BankSimulator.DataAccess.csproj", "{FD85AD1E-FE51-436D-9B25-24024F8E054E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSimulator.Model", "BankSimulator.Model\BankSimulator.Model.csproj", "{EEF6DC1A-BBE6-44D0-8384-64559A8A1DB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankSimulator.Model", "BankSimulator.Model\BankSimulator.Model.csproj", "{EEF6DC1A-BBE6-44D0-8384-64559A8A1DB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSimulator.Core", "BankSimulator.Core\BankSimulator.Core.csproj", "{463AF039-425E-4EE9-B4B2-813FAA8C5223}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{EEF6DC1A-BBE6-44D0-8384-64559A8A1DB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEF6DC1A-BBE6-44D0-8384-64559A8A1DB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEF6DC1A-BBE6-44D0-8384-64559A8A1DB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{463AF039-425E-4EE9-B4B2-813FAA8C5223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{463AF039-425E-4EE9-B4B2-813FAA8C5223}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{463AF039-425E-4EE9-B4B2-813FAA8C5223}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{463AF039-425E-4EE9-B4B2-813FAA8C5223}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

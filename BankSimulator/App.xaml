@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="Theme/ContactCard.xaml"/>
                 <ResourceDictionary Source="Theme/StylishScrollbar.xaml"/>
                 <ResourceDictionary Source="Theme/ProductCard.xaml"/>
+                <ResourceDictionary Source="Theme/OrganizationCard.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <!--<DataTemplate DataType="{x:Type viewModel:HomeViewModel}">

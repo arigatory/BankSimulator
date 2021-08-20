@@ -36,6 +36,10 @@
     <ProjectReference Include="..\ModuleClients\ModuleClients.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Theme\OrganizationCard.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Theme\ProductCard.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

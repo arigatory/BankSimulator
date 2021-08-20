@@ -19,7 +19,7 @@
                       SelectedItem="{Binding SelectedOrganization}"
                       Background="Transparent"
                       BorderThickness="0"
-                      ItemContainerStyle="{StaticResource ContactCard}"/>
+                      ItemContainerStyle="{StaticResource OrganizationCard}"/>
 
                 <StackPanel Orientation="Horizontal"
                             Grid.Row="1"

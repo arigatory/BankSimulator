@@ -5,10 +5,24 @@ namespace BankSimulator.Model
 {
     public class Bank
     {
+        private static Bank instance;
+        private Bank()
+        {
+            Clients = new List<Client>();
+        }
+
+        public static Bank getInstance()
+        {
+            if(instance == null)
+                instance = new Bank();
+            return instance;
+        }
+
+
         public List<Client> Clients { get; set; }
         public int TotalClients
         {
-            get => Clients.Count();
+            get => Clients.Count;
         }
         public int TotalMoney
         {
@@ -27,9 +41,5 @@ namespace BankSimulator.Model
             }
         }
 
-        public Bank()
-        {
-            Clients = new List<Client>();
-        }
     }
 }

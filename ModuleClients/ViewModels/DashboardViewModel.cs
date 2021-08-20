@@ -1,5 +1,6 @@
 ﻿using BankSimulator.Model;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
@@ -7,14 +8,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BankSimulator.Core.Events;
 
 namespace ModuleClients.ViewModels
 {
     public class DashboardViewModel : BindableBase, INavigationAware
     {
         private IRegionManager _regionManager;
+        private readonly IEventAggregator _eventAggregator;
         private int _totalClients;
-        private int _totalMoney;
+        private long _totalMoney;
         private int _totalProducts;
 
 
@@ -28,7 +31,7 @@ namespace ModuleClients.ViewModels
                 SetProperty(ref _totalClients, value);
             }
         }
-        public int TotalMoney
+        public long TotalMoney
         {
             get { return _totalMoney; }
             set { SetProperty(ref _totalMoney, value); }
@@ -44,11 +47,22 @@ namespace ModuleClients.ViewModels
         public DelegateCommand NextYearCommand { get; set; }
 
 
-        public DashboardViewModel(IRegionManager regionManager)
+        public DashboardViewModel(IRegionManager regionManager,
+            IEventAggregator eventAggregator)
         {
             _regionManager = regionManager;
+            _eventAggregator = eventAggregator;
             NavigateCommand = new DelegateCommand<string>(Navigate);
             NextYearCommand = new DelegateCommand(NextYear);
+            _eventAggregator.GetEvent<OneYearPassedEvent>().Subscribe(OneYearPassed);
+            _eventAggregator.GetEvent<DeletedItemEvent>().Subscribe(OneYearPassed);
+        }
+
+        private void OneYearPassed(string message)
+        {
+            TotalClients = _bank.TotalClients;
+            TotalMoney = _bank.TotalMoney;
+            TotalProducts = _bank.TotalProducts;
         }
 
         private void NextYear()
@@ -60,6 +74,9 @@ namespace ModuleClients.ViewModels
                     product.Amount = (int)(product.Amount * (1 + product.Percent / 100));
                 }
             }
+            _eventAggregator.GetEvent<OneYearPassedEvent>().Publish("One year passed!");
+            TotalClients += 1;
+            TotalProducts +=1;
         }
 
         private void Navigate(string uri)

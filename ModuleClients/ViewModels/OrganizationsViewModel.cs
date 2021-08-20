@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ModuleClients.ViewModels
 {
-    public class OrganizationsViewModel : BindableBase
+    public class OrganizationsViewModel : BindableBase, INavigationAware
     {
         private readonly IClientsRepository _clientsRepository;
         private readonly IRegionManager _regionManager;
@@ -20,6 +20,8 @@ namespace ModuleClients.ViewModels
         public ObservableCollection<Client> Organizations { get; }
 
         private Client _selectedOrganization;
+        private Bank _bank;
+
         public Client SelectedOrganization
         {
             get { return _selectedOrganization; }
@@ -42,18 +44,8 @@ namespace ModuleClients.ViewModels
             Organizations = new ObservableCollection<Client>();
             DeleteCommand = new DelegateCommand(OndDeleteExecute, OnDeleteCanExecute);
             NavigateCommand = new DelegateCommand<string>(Navigate);
-            LoadAsync();
         }
 
-        private async void LoadAsync()
-        {
-            var clients = await _clientsRepository.GetClientsAsync();
-            foreach (var client in clients)
-            {
-                Organizations.Add(client);
-            }
-            SelectedOrganization = Organizations.FirstOrDefault();
-        }
 
         private void Navigate(string uri)
         {
@@ -70,12 +62,39 @@ namespace ModuleClients.ViewModels
 
         private void OndDeleteExecute()
         {
+            _bank.Clients.Remove(SelectedOrganization);
             Organizations.Remove(SelectedOrganization);
         }
 
         private bool OnDeleteCanExecute()
         {
             return SelectedOrganization != null;
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            if (navigationContext.Parameters.ContainsKey("bank"))
+            {
+                _bank = navigationContext.Parameters.GetValue<Bank>("bank");
+                Organizations.Clear();
+                foreach (var client in _bank.Clients)
+                {
+                    if (client is Organization)
+                    {
+                        Organizations.Add(client);
+                    }
+                }
+                SelectedOrganization = Organizations.FirstOrDefault();
+            }
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
         }
     }
 }
