@@ -39,7 +39,15 @@ namespace BankSimulator.ViewModels
             _clientsRepository = new ClientsInMemoryDataProvider();
             _regionManager = regionManager;
             NavigateCommand = new DelegateCommand<string>(Navigate);
-            SkillboxBank = Bank.getInstance();
+            try
+            {
+                SkillboxBank = Bank.getInstance();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
             LoadAsync();
         }
 
