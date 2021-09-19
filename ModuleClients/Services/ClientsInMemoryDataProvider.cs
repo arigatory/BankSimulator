@@ -16,16 +16,6 @@ namespace ModuleClients.Services
         Collection<Client> _clients = new Collection<Client>();
         private static HttpClient _httpClient = new HttpClient();
 
-        public Task DleteCustomerAsync(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Client> GetClientAsync(string name)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<List<Client>> GetClientsAsync()
         {
             Random random = new Random();
@@ -87,11 +77,6 @@ namespace ModuleClients.Services
             _clients.Add(company);
 
             return _clients.ToList();
-        }
-
-        public Task<Client> UpdateClient(string name)
-        {
-            throw new NotImplementedException();
         }
     }
 }
