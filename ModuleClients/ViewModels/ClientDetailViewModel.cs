@@ -71,7 +71,7 @@ namespace ModuleClients.ViewModels
             var p = new Product{
                 Name = "Новый банковский продукт",
                 Amount = 0,
-                Number = 123,
+                Number = "123",
                 OpenedDate = DateTime.Now,
                 Percent = 7.0
             };

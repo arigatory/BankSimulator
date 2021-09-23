@@ -80,7 +80,9 @@ namespace ModuleClients.ViewModels
 
         private void Navigate(string uri)
         {
-            _regionManager.RequestNavigate("ContentRegion", uri);
+            var p = new NavigationParameters();
+            p.Add("bank", _bank);
+            _regionManager.RequestNavigate("ContentRegion", uri, p);
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)

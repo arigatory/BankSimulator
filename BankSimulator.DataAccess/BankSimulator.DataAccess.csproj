@@ -4,16 +4,28 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;PC</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
+    <None Remove="DataProviderEnum.xaml" />
     <None Remove="DBContext.xaml" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Bogus" Version="33.0.2" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="3.0.0" />
+    <PackageReference Include="System.Data.Common" Version="4.3.0" />
+    <PackageReference Include="System.Data.Odbc" Version="5.0.0" />
+    <PackageReference Include="System.Data.OleDb" Version="5.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <Page Include="DataProviderEnum.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DBContext.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

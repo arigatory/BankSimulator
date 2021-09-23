@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Odbc;
+using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Text;
 
@@ -11,6 +13,26 @@ namespace BankSimulator.DataAccess
         private SqlConnection con;
         private DataTable dt;
         private SqlDataAdapter da;
+        
+        void Setup(DataProviderEnum provider)
+        {
+            IDbConnection myConnection = GetConnection(provider);
+            
+            //Console.WriteLine("\n\n\n------------------->" + myConnection?.GetType().Name ?? "unrecognized type");
+        }
+
+        private IDbConnection GetConnection(DataProviderEnum dataProvider)
+        {
+            return dataProvider switch
+            {
+                DataProviderEnum.SqlServer => new SqlConnection(),
+#if PC
+                DataProviderEnum.OleDb => new OleDbConnection(),
+#endif
+                DataProviderEnum.Odbc => new OdbcConnection(),
+                _ => null,
+            };
+        }
 
         public void Connect()
         {
@@ -25,6 +47,8 @@ namespace BankSimulator.DataAccess
             {
                 using (SqlConnection c = new SqlConnection(connectionStringBuilder.ConnectionString))
                 {
+                    Setup(DataProviderEnum.SqlServer);
+
                     c.Open();
                     dt = new DataTable();
                     da = new SqlDataAdapter();
