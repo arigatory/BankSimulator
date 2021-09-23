@@ -36,9 +36,9 @@ namespace ModuleClients.Services
                 .RuleFor(p => p.IsVIP, false);
                 var client = testUser.Generate(1).FirstOrDefault();
                 client.ImageSource = person.results[i].picture.large;
-                client.Products.Add(new Product { Name = "Вклад 'Skillbox'", Percent = 7.5, Number = 123, OpenedDate = DateTime.Now, Amount = random.Next(10000, 500000) });
-                client.Products.Add(new Product { Name = "Накопительный счет", Percent = 5.5, Number = 543, OpenedDate = DateTime.Now, Amount = random.Next(10000, 500000) });
-                client.Products.Add(new Product { Name = "Кредит", Percent = 10.5, Number = 543, OpenedDate = DateTime.Now, Amount = -random.Next(10000, 1000000) });
+                client.Products.Add(new Product { Name = "Вклад 'Skillbox'", Percent = 7.5, Number = "123", OpenedDate = DateTime.Now, Amount = random.Next(10000, 500000) });
+                client.Products.Add(new Product { Name = "Накопительный счет", Percent = 5.5, Number = "543", OpenedDate = DateTime.Now, Amount = random.Next(10000, 500000) });
+                client.Products.Add(new Product { Name = "Кредит", Percent = 10.5, Number = "543", OpenedDate = DateTime.Now, Amount = -random.Next(10000, 1000000) });
                 _clients.Add(client);
             }
 
@@ -53,9 +53,9 @@ namespace ModuleClients.Services
                 .RuleFor(p => p.IsVIP, true);
                 var client = testUser.Generate(1).FirstOrDefault();
                 client.ImageSource = person.results[j].picture.large;
-                client.Products.Add(new Product { Name = "Премиальный вклад", Percent = 11.5, Number = 123, OpenedDate = DateTime.Now, Amount = random.Next(3000000, 15000000) });
-                client.Products.Add(new Product { Name = "Рассчетный счет", Percent = 5.5, Number = 543, OpenedDate = DateTime.Now, Amount = random.Next(10000, 1000000) });
-                client.Products.Add(new Product { Name = "Брокерский счет", Percent = 10.5, Number = 543, OpenedDate = DateTime.Now, Amount = random.Next(5000000, 10000000) });
+                client.Products.Add(new Product { Name = "Премиальный вклад", Percent = 11.5, Number = "123", OpenedDate = DateTime.Now, Amount = random.Next(3000000, 15000000) });
+                client.Products.Add(new Product { Name = "Рассчетный счет", Percent = 5.5, Number = "1233", OpenedDate = DateTime.Now, Amount = random.Next(10000, 1000000) });
+                client.Products.Add(new Product { Name = "Брокерский счет", Percent = 10.5, Number = "543", OpenedDate = DateTime.Now, Amount = random.Next(5000000, 10000000) });
                 _clients.Add(client);
             }
 

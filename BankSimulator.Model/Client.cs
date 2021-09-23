@@ -5,6 +5,7 @@ namespace BankSimulator.Model
 {
     public class Client
     {
+        public int Id { get; set; }
         public Client()
         {
             Products = new List<Product>();
