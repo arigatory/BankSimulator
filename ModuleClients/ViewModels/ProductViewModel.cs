@@ -20,7 +20,7 @@ namespace ModuleClients.ViewModels
         public Product Product
         {
             get { return _product; }
-            set { SetProperty(ref _product, value); }
+            set { SetProperty(ref _product, value);}
         }
 
         public DelegateCommand<string> NavigateCommand { get; set; }

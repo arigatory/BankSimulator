@@ -10,6 +10,6 @@ namespace BankSimulator.Model
         public string Number { get; set; }
         public double Percent { get; set; }
         public DateTime OpenedDate { get; set; }
-        public int Amount { get; set; }
+        public long Amount { get; set; }
     }
 }

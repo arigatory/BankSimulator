@@ -14,7 +14,7 @@ namespace BankSimulator.Model
         {
             get
             {
-                int total = Products.Sum(item => item.Amount);
+                long total = Products.Sum(item => item.Amount);
 
                 return total;
             }

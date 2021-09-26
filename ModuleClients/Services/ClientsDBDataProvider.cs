@@ -13,28 +13,21 @@ using System.Windows;
 
 namespace ModuleClients.Services
 {
-  
+
     public class ClientsDBDataProvider : IClientsRepository
     {
+
+
         Collection<Client> _clients = new Collection<Client>();
         private static HttpClient _httpClient = new HttpClient();
         public async Task<List<Client>> GetClientsAsync()
         {
-            //Random random = new Random();
-
-            //int numberOfPeople = 20;
-            //int numberOfVIPPeople = 10;
-
             PersonsDal dal = new PersonsDal();
-            var result = await dal.GetAllPersons();
-            var clients = new List<Client>();
-            foreach (var person in result)
-            {
-                clients.Add(person);
-            }
-            return clients;
+            Random random = new Random();
 
-            //var json = await _httpClient.GetStringAsync($"https://randomuser.me/api/?results={numberOfPeople + numberOfVIPPeople}&inc=picture,gender");
+
+            //int numberOfPeople = 5;
+            //var json = await _httpClient.GetStringAsync($"https://randomuser.me/api/?results={numberOfPeople}&inc=picture,gender");
             //ForJasonConversion.RootObject person = JsonConvert.DeserializeObject<ForJasonConversion.RootObject>(json);
 
             //for (int i = 0; i < numberOfPeople; i++)
@@ -49,8 +42,20 @@ namespace ModuleClients.Services
             //    client.Products.Add(new Product { Name = "Вклад 'Skillbox'", Percent = 7.5, Number = "123", OpenedDate = DateTime.Now, Amount = random.Next(10000, 500000) });
             //    client.Products.Add(new Product { Name = "Накопительный счет", Percent = 5.5, Number = "543", OpenedDate = DateTime.Now, Amount = random.Next(10000, 500000) });
             //    client.Products.Add(new Product { Name = "Кредит", Percent = 10.5, Number = "543", OpenedDate = DateTime.Now, Amount = -random.Next(10000, 1000000) });
-            //    _clients.Add(client);
+            //    dal.InsertPerson(client);
             //}
+
+
+            var result = await dal.GetAllPersons();
+            var clients = new List<Client>();
+     
+            foreach (var pers in result)
+            {
+                clients.Add(pers);
+            }
+            return clients;
+
+
 
 
             //for (int i = 0; i < numberOfVIPPeople; i++)
