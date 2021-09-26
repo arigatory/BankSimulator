@@ -54,7 +54,7 @@ namespace BankSimulator.DataAccess
                 {
                     person.Sex = Gender.Female;
                 }
-                person.Products = await GetAllProductsForPerson(person.Id);
+                person.Products = await GetAllProductsForClient(person);
                 persons.Add(person);
             }
             dataReader.Close();
@@ -62,20 +62,31 @@ namespace BankSimulator.DataAccess
         }
 
 
-        public async Task<List<Product>> GetAllProductsForPerson(int personId)
+        public async Task<List<Product>> GetAllProductsForClient(Client client)
         {
+            string tableName = "";
+            if (client is Person person)
+            {
+                tableName = "Products";
+            }
+            else if (client is Organization organization)
+            {
+                tableName = "OrganizationProducts";
+            }
             OpenConnection();
             List<Product> products = new List<Product>();
             SqlParameter param = new SqlParameter
             {
-                ParameterName = "@PersonId",
-                Value = personId,
+                ParameterName = "@ClientId",
+                Value = client.Id,
                 SqlDbType = SqlDbType.Int,
                 Direction = ParameterDirection.Input
             };
-            string sql = @"SELECT p.Amount, p.Name, p.Number, p.ProductPercent, p.OpenedDate
-                           FROM Products p 
-                           WHERE p.PersonId = @PersonId";
+            string sql = $"SELECT p.Amount, p.Name, p.Number, p.ProductPercent, p.OpenedDate " +
+                         $"FROM {tableName} p " +
+                         $"WHERE p.ClientId = @ClientId";
+
+
             using SqlCommand command = new SqlCommand(sql, _sqlConnection)
             {
                 CommandType = CommandType.Text
@@ -85,7 +96,7 @@ namespace BankSimulator.DataAccess
             while (dataReader.Read())
             {
                 products.Add(new Product{
-                    PersonId = personId,
+                    ClientId = client.Id,
                     Name = (string)dataReader["Name"],
                     Number = (string)dataReader["Number"],
                     Percent = (double)dataReader["ProductPercent"],
@@ -97,82 +108,140 @@ namespace BankSimulator.DataAccess
             return products;
         }
 
-        public void InsertPerson(Person person)
+
+        public async Task<List<Organization>> GetAllOrganizations()
         {
             OpenConnection();
-            // Note the "placeholders" in the SQL query.
-            string sql = "Insert Into Persons" +
+            List<Organization> organizations = new List<Organization>();
+            string sql = @"SELECT o.Id, o.ImageSource, o.Title FROM Organizations o";
+            using SqlCommand command = new SqlCommand(sql, _sqlConnection)
+            {
+                CommandType = CommandType.Text
+            };
+            SqlDataReader dataReader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            while (dataReader.Read())
+            {
+                var organization = new Organization
+                {
+                    Id = (int)dataReader["Id"],
+                    ImageSource = (string)dataReader["ImageSource"],
+                    Title = (string)dataReader["Title"],
+                };
+
+                organization.Products = await GetAllProductsForClient(organization);
+                organizations.Add(organization);
+            }
+            dataReader.Close();
+            return organizations;
+        }
+
+        public void InsertClient(Client client)
+        {
+            OpenConnection();
+            string sql = "";
+            string productsTableName = "";
+            if (client is Person person)
+            {
+                sql = "Insert Into Persons" +
                 "(ImageSource, IsVIP, IsMale, FirstName, LastName) " +
                 "output INSERTED.ID " +
                 "Values (@ImageSource, @IsVIP, @IsMale, @FirstName, @LastName)";
-            // This command will have internal parameters.
+                productsTableName = "Products";
+            }
+            else if (client is Organization organization)
+            {
+                sql = "Insert Into Organizations" +
+                "(ImageSource, Title) " +
+                "output INSERTED.ID " +
+                "Values (@ImageSource, @Title)";
+                productsTableName = "OrganizationProducts";
+            }
+
             using (SqlCommand command = new SqlCommand(sql, _sqlConnection))
             {
-                // Fill params collection.
                 SqlParameter parameter = new SqlParameter
                 {
                     ParameterName = "@ImageSource",
-                    Value = person.ImageSource,
+                    Value = client.ImageSource,
                     SqlDbType = SqlDbType.NVarChar,
                     Size = 200,
                     Direction = ParameterDirection.Input
                 };
-                command.Parameters.Add(parameter); 
-                parameter = new SqlParameter
-                {
-                    ParameterName = "@IsVIP",
-                    Value = person.IsVIP,
-                    SqlDbType = SqlDbType.Bit,
-                    Direction = ParameterDirection.Input
-                };
-                command.Parameters.Add(parameter); parameter = new SqlParameter
-                {
-                    ParameterName = "@IsMale",
-                    Value = person.Sex == Gender.Male,
-                    SqlDbType = SqlDbType.Bit,
-                    Direction = ParameterDirection.Input
-                };
                 command.Parameters.Add(parameter);
-                parameter = new SqlParameter
+
+                
+                if (client is Person p)
                 {
-                    ParameterName = "@FirstName",
-                    Value = person.FirstName,
-                    SqlDbType = SqlDbType.NVarChar,
-                    Size = 50,
-                    Direction = ParameterDirection.Input
-                };
-                command.Parameters.Add(parameter);
-                parameter = new SqlParameter
+                    parameter = new SqlParameter
+                    {
+                        ParameterName = "@IsVIP",
+                        Value = p.IsVIP,
+                        SqlDbType = SqlDbType.Bit,
+                        Direction = ParameterDirection.Input
+                    };
+                    command.Parameters.Add(parameter);
+                    parameter = new SqlParameter
+                    {
+                        ParameterName = "@IsMale",
+                        Value = p.Sex == Gender.Male,
+                        SqlDbType = SqlDbType.Bit,
+                        Direction = ParameterDirection.Input
+                    };
+                    command.Parameters.Add(parameter);
+                    parameter = new SqlParameter
+                    {
+                        ParameterName = "@FirstName",
+                        Value = p.FirstName,
+                        SqlDbType = SqlDbType.NVarChar,
+                        Size = 50,
+                        Direction = ParameterDirection.Input
+                    };
+                    command.Parameters.Add(parameter);
+                    parameter = new SqlParameter
+                    {
+                        ParameterName = "@Lastname",
+                        Value = p.LastName,
+                        SqlDbType = SqlDbType.NVarChar,
+                        Size = 50,
+                        Direction = ParameterDirection.Input
+                    };
+                    command.Parameters.Add(parameter);
+                }
+                else if (client is Organization o)
                 {
-                    ParameterName = "@Lastname",
-                    Value = person.LastName,
-                    SqlDbType = SqlDbType.NVarChar,
-                    Size = 50,
-                    Direction = ParameterDirection.Input
-                };
-                command.Parameters.Add(parameter);
-                int personId = (int)command.ExecuteScalar();
-                foreach (var prod in person.Products)
+                    parameter = new SqlParameter
+                    {
+                        ParameterName = "@Title",
+                        Value = o.Title,
+                        SqlDbType = SqlDbType.NVarChar,
+                        Size = 50,
+                        Direction = ParameterDirection.Input
+                    };
+                    command.Parameters.Add(parameter);
+                }
+                int clientId = (int)command.ExecuteScalar();
+
+                foreach (var prod in client.Products)
                 {
-                    InsertProduct(prod, personId);
+                    InsertProductForClient(prod, clientId, productsTableName);
                 }
                 CloseConnection();
             }
         }
 
-        public void InsertProduct(Product product, int personId)
+        public void InsertProductForClient(Product product, int clientId, string clientTable)
         {
             OpenConnection();
-            string sql = "Insert Into Products" +
-                "(PersonId, Amount, Name, Number, ProductPercent, OpenedDate) " +
-                "Values (@PersonId, @Amount, @Name, @Number, @ProductPercent, @OpenedDate)";
+            string sql = $"Insert Into {clientTable}" +
+                "(ClientId, Amount, Name, Number, ProductPercent, OpenedDate) " +
+                "Values (@ClientId, @Amount, @Name, @Number, @ProductPercent, @OpenedDate)";
             
             using (SqlCommand command = new SqlCommand(sql, _sqlConnection))
             {
                 SqlParameter parameter = new SqlParameter
                 {
-                    ParameterName = "@PersonId",
-                    Value = personId,
+                    ParameterName = "@ClientId",
+                    Value = clientId,
                     SqlDbType = SqlDbType.Int,
                     Direction = ParameterDirection.Input
                 };
