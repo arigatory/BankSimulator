@@ -36,7 +36,7 @@ namespace BankSimulator.ViewModels
 
         public MainWindowViewModel(IRegionManager regionManager)
         {
-            _clientsRepository = new ClientsDBDataProvider();
+            _clientsRepository = new ClientsEFDataProvider();
             _regionManager = regionManager;
             NavigateCommand = new DelegateCommand<string>(Navigate);
             try

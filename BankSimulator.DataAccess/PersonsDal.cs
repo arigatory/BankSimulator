@@ -1,12 +1,20 @@
 ﻿using BankSimulator.Model;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.Odbc;
+#if PC
 using System.Data.OleDb;
+#endif
 using System.Data.SqlClient;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+
+
+
 
 namespace BankSimulator.DataAccess
 {
@@ -15,10 +23,11 @@ namespace BankSimulator.DataAccess
         private readonly string _connectionString;
         private SqlConnection _sqlConnection = null;
 
-        public PersonsDal() : this("Data Source=(localdb)\\mssqllocaldb;Integrated Security=true;Initial Catalog=BankSimulatorDB")
+        public PersonsDal()
         {
+            var (provider, connectionString) = GetProviderFromConfiguration();
+            _connectionString = connectionString;
         }
-
         public PersonsDal(string connectionString)
             => _connectionString = connectionString;
 
@@ -95,7 +104,8 @@ namespace BankSimulator.DataAccess
             SqlDataReader dataReader = command.ExecuteReader(CommandBehavior.CloseConnection);
             while (dataReader.Read())
             {
-                products.Add(new Product{
+                products.Add(new Product
+                {
                     ClientId = client.Id,
                     Name = (string)dataReader["Name"],
                     Number = (string)dataReader["Number"],
@@ -169,7 +179,7 @@ namespace BankSimulator.DataAccess
                 };
                 command.Parameters.Add(parameter);
 
-                
+
                 if (client is Person p)
                 {
                     parameter = new SqlParameter
@@ -235,7 +245,7 @@ namespace BankSimulator.DataAccess
             string sql = $"Insert Into {clientTable}" +
                 "(ClientId, Amount, Name, Number, ProductPercent, OpenedDate) " +
                 "Values (@ClientId, @Amount, @Name, @Number, @ProductPercent, @OpenedDate)";
-            
+
             using (SqlCommand command = new SqlCommand(sql, _sqlConnection))
             {
                 SqlParameter parameter = new SqlParameter
@@ -326,6 +336,18 @@ namespace BankSimulator.DataAccess
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+
+        static (DataProviderEnum Provider, string ConnectionString) GetProviderFromConfiguration()
+        {
+            IConfiguration config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", true, true).Build();
+            var providerName = config["ProviderName"]; 
+            if (Enum.TryParse<DataProviderEnum>(providerName, out DataProviderEnum provider))
+            {
+                return (provider, config[$"{providerName}:ConnectionString"]);
+            };
+            throw new Exception("Invalid data provider value supplied.");
         }
 
     }
