@@ -14,7 +14,6 @@ namespace ModuleClients.Services
         public async Task<List<Client>> GetClientsAsync()
         {
             var clients = new List<Client>();
-            PersonsDal dal = new PersonsDal();
             using (var ctx = new ApplicationDbContext())
             {
                 var persons = await ctx.Persons.ToListAsync();
