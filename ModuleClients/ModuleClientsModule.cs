@@ -21,7 +21,7 @@ namespace ModuleClients
 
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            //_regionManager.RegisterViewWithRegion("ContentRegion", typeof(DashboardView));
+            _regionManager.RegisterViewWithRegion("ContentRegion", typeof(DashboardView));
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
